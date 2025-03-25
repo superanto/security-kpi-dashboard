@@ -92,7 +92,7 @@ if [ ! -f "$SSL_DIR/cert.pem" ] || [ ! -f "$SSL_DIR/key.pem" ]; then
     # Vérifier si le script de génération existe
     if [ -f "$SSL_DIR/generate_cert.sh" ]; then
         chmod +x "$SSL_DIR/generate_cert.sh"
-        "$SSL_DIR/generate_cert.sh"
+        bash "$SSL_DIR/generate_cert.sh"
     else
         # Générer manuellement si le script n'existe pas
         openssl req -x509 -newkey rsa:4096 -nodes -out "$SSL_DIR/cert.pem" -keyout "$SSL_DIR/key.pem" -days 365 \
@@ -109,7 +109,7 @@ fi
 
 # Démarrer le serveur et le client dans des processus séparés
 echo -e "${YELLOW}Démarrage du serveur backend...${NC}"
-cd "$SERVER_DIR" && python app.py &
+cd "$SERVER_DIR" && python3 app.py &
 SERVER_PID=$!
 
 # Attendre que le serveur soit démarré
